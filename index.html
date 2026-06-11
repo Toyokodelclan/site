@@ -1,11 +1,223 @@
-HTML
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page - Wireframe Convertido</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Landing Page - Todo en Uno</title>
+    
+    <style>
+        /* VARIABLES DE COLOR BASADAS EN TU PALETA */
+        :root {
+            --color-primary-light: #D4E09B;  /* Verde musgo claro */
+            --color-bg-cream: #F6F4D2;       /* Crema / Fondo claro */
+            --color-sage-soft: #CBDFBD;      /* Verde sabio suave */
+            --color-salmon-accent: #F19C79;  /* Salmón suave / Accent */
+            --color-rust-dark: #A44A3F;      /* Terracota oscuro / Óxido */
+            --text-dark: #2F3E22;            /* Texto oscuro complementario */
+            --text-light: #FFFFFF;           /* Texto blanco */
+        }
+
+        /* CONFIGURACIÓN GENERAL / RESET */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--color-bg-cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ESTILOS DEL ENCABEZADO (HEADER) */
+        .main-header {
+            background-color: var(--color-sage-soft);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            border-bottom: 3px solid var(--color-primary-light);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* Contenedor del Logo */
+        .logo h2 {
+            color: var(--color-rust-dark);
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Menú de Navegación */
+        .nav-menu {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: var(--color-rust-dark);
+        }
+
+        /* Barra de Búsqueda */
+        .search-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 8px 15px;
+            border: 2px solid var(--color-primary-light);
+            border-radius: 20px;
+            background-color: var(--text-light);
+            outline: none;
+            font-size: 14px;
+            color: var(--text-dark);
+            transition: border-color 0.3s ease;
+            width: 200px;
+        }
+
+        .search-input:focus {
+            border-color: var(--color-rust-dark);
+        }
+
+        /* ESTILOS DE LA SECCIÓN HERO / MAIN SLIDER */
+        .hero-section {
+            flex: 1;
+            position: relative;
+            /* Líneas en 'X' cruzadas de fondo emulando el wireframe original */
+            background: 
+                linear-gradient(to top right, transparent 49.5%, var(--color-primary-light) 49.5%, var(--color-primary-light) 50.5%, transparent 50.5%),
+                linear-gradient(to bottom right, var(--color-sage-soft) 0%, var(--color-bg-cream) 100%);
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            padding-left: 10%;
+            overflow: hidden;
+        }
+
+        /* Caja de Contenido Central (Textos y Botón flotante) */
+        .hero-content {
+            background-color: rgba(255, 255, 255, 0.92);
+            padding: 40px;
+            border-radius: 12px;
+            border-left: 5px solid var(--color-salmon-accent);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            max-width: 450px;
+            z-index: 2; 
+        }
+
+        .hero-title {
+            font-size: 36px;
+            color: var(--color-rust-dark);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .hero-subtitle {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        /* Botón Interactuable */
+        .hero-btn {
+            background-color: var(--color-salmon-accent);
+            color: var(--text-light);
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 10px rgba(241, 156, 121, 0.4);
+        }
+
+        .hero-btn:hover {
+            background-color: var(--color-rust-dark);
+            transform: translateY(-2px);
+        }
+
+        .hero-btn:active {
+            transform: translateY(0);
+        }
+
+        /* CONTROLES DEL SLIDER (FLECHAS INFERIORES EN LAS ESQUINAS) */
+        .slider-controls {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 40px;
+            pointer-events: none; /* Deja pasar los clics al fondo si no se toca un botón */
+            z-index: 3;
+        }
+
+        .control-btn {
+            pointer-events: auto; /* Reactiva interacción en las flechas circulares */
+            background-color: var(--color-rust-dark);
+            color: var(--text-light);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .control-btn:hover {
+            background-color: var(--color-salmon-accent);
+            transform: scale(1.1);
+        }
+
+        /* RESPONSIVE DESIGN (Pantallas móviles y tablets) */
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+            
+            .hero-section {
+                padding-left: 5%;
+                padding-right: 5%;
+                justify-content: center;
+            }
+            
+            .hero-content {
+                text-align: center;
+                border-left: none;
+                border-top: 5px solid var(--color-salmon-accent);
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -37,242 +249,12 @@ HTML
         </div>
 
         <div class="slider-controls">
-            <button class="control-btn prev-btn" aria-label="Anterior">
-                &#10229; </button>
+            <button class="control-btn prev-btn" aria-label="Anterior">&#10229;</button>
             
-            <button class="control-btn next-btn" aria-label="Siguiente">
-                &#10230; </button>
+            <button class="control-btn next-btn" aria-label="Siguiente">&#10230;</button>
         </div>
         
     </main>
 
 </body>
 </html>
-CSS
-/* ========================================== */
-/* VARIABLES DE COLOR Y CONFIGURACIÓN GENERAL  */
-/* ========================================== */
-:root {
-    --color-primary-light: #D4E09B;  /* Verde musgo claro (Imagen de paleta) */
-    --color-bg-cream: #F6F4D2;       /* Crema / Fondo claro (Imagen de paleta) */
-    --color-sage-soft: #CBDFBD;      /* Verde sabio suave (Imagen de paleta) */
-    --color-salmon-accent: #F19C79;  /* Salmón suave / Accent (Imagen de paleta) */
-    --color-rust-dark: #A44A3F;      /* Terracota oscuro / Óxido (Imagen de paleta) */
-    --text-dark: #2F3E22;            /* Color de texto oscuro complementario */
-    --text-light: #FFFFFF;           /* Texto blanco */
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-body {
-    background-color: var(--color-bg-cream);
-    color: var(--text-dark);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-/* ========================================== */
-/* ESTILOS DEL ENCABEZADO (HEADER)            */
-/* ========================================== */
-.main-header {
-    background-color: var(--color-sage-soft);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    border-bottom: 3px solid var(--color-primary-light);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-}
-
-/* Estilo del Logo */
-.logo h2 {
-    color: var(--color-rust-dark);
-    font-size: 24px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Estilos de la Barra de Navegación */
-.nav-menu {
-    display: flex;
-    gap: 25px;
-}
-
-.nav-item {
-    text-decoration: none;
-    color: var(--text-dark);
-    font-weight: 600;
-    font-size: 16px;
-    transition: color 0.3s ease;
-}
-
-.nav-item:hover {
-    color: var(--color-rust-dark);
-}
-
-/* Estilos de la Barra de Búsqueda */
-.search-container {
-    display: flex;
-    align-items: center;
-}
-
-.search-input {
-    padding: 8px 15px;
-    border: 2px solid var(--color-primary-light);
-    border-radius: 20px;
-    background-color: var(--text-light);
-    outline: none;
-    font-size: 14px;
-    color: var(--text-dark);
-    transition: border-color 0.3s ease;
-    width: 200px;
-}
-
-.search-input:focus {
-    border-color: var(--color-rust-dark);
-}
-
-
-/* ========================================== */
-/* ESTILOS DE LA SECCIÓN HERO / SLIDER        */
-/* ========================================== */
-.hero-section {
-    flex: 1;
-    position: relative;
-    
-    /* Nota técnica: Se aplica un degradado de fondo combinado con líneas diagonales suaves
-       que emulan las líneas divisorias en "X" que tiene tu wireframe de referencia */
-    background: 
-        linear-gradient(to top right, transparent 49.5%, var(--color-primary-light) 49.5%, var(--color-primary-light) 50.5%, transparent 50.5%),
-        linear-gradient(to bottom right, var(--color-sage-soft) 0%, var(--color-bg-cream) 100%);
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    padding-left: 10%;
-    overflow: hidden;
-}
-
-/* Caja de Contenido Central (Donde se ubica el texto flotante del plano) */
-.hero-content {
-    background-color: rgba(255, 255, 255, 0.92);
-    padding: 40px;
-    border-radius: 12px;
-    border-left: 5px solid var(--color-salmon-accent);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    max-width: 450px;
-    z-index: 2; 
-}
-
-/* Título Principal */
-.hero-title {
-    font-size: 36px;
-    color: var(--color-rust-dark);
-    margin-bottom: 12px;
-    font-weight: 700;
-}
-
-/* Subtítulo */
-.hero-subtitle {
-    font-size: 18px;
-    color: var(--text-dark);
-    margin-bottom: 24px;
-    line-height: 1.5;
-}
-
-/* Botón de Llamado a la Acción (CTA) */
-.hero-btn {
-    background-color: var(--color-salmon-accent);
-    color: var(--text-light);
-    border: none;
-    padding: 12px 30px;
-    font-size: 16px;
-    font-weight: 600;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 10px rgba(241, 156, 121, 0.4);
-}
-
-.hero-btn:hover {
-    background-color: var(--color-rust-dark);
-    transform: translateY(-2px);
-}
-
-.hero-btn:active {
-    transform: translateY(0);
-}
-
-
-/* ========================================== */
-/* CONTROLES DEL SLIDER (FLECHAS INFERIORES)   */
-/* ========================================== */
-.slider-controls {
-    position: absolute;
-    bottom: 30px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 40px;
-    pointer-events: none; /* Permite clics a través del contenedor transparente */
-    z-index: 3;
-}
-
-/* Botones circulares con flechas (Ubicados exactamente en las esquinas inferiores como el wireframe) */
-.control-btn {
-    pointer-events: auto; /* Reactiva los eventos de clic individuales */
-    background-color: var(--color-rust-dark);
-    color: var(--text-light);
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.control-btn:hover {
-    background-color: var(--color-salmon-accent);
-    transform: scale(1.1);
-}
-
-/* ========================================== */
-/* OPTIMIZACIÓN RESPONSIVA (MEDIA QUERIES)    */
-/* ========================================== */
-@media (max-width: 768px) {
-    .main-header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 20px;
-    }
-    
-    .nav-menu {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-    }
-    
-    .hero-section {
-        padding-left: 5%;
-        padding-right: 5%;
-        justify-content: center;
-    }
-    
-    .hero-content {
-        text-align: center;
-        border-left: none;
-        border-top: 5px solid var(--color-salmon-accent);
-    }
-}
